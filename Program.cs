@@ -129,7 +129,6 @@ namespace NETCORE_TCP_PROXY
 
             TcpClient Client = (TcpClient) NewClient;
 
-
             Console.WriteLine("Connected! Spawned Thread {0}", Thread.CurrentThread.ManagedThreadId);
 
             //Buffer variables for reading data
@@ -148,27 +147,54 @@ namespace NETCORE_TCP_PROXY
                 // Translate data bytes to a ASCII string.
                 data = System.Text.Encoding.ASCII.GetString(bytes, 0, i);
 
+                //Get Hostname from incoming request
+                if (data.Contains("CONNECT") || data.Contains("GET"))
+                {
+                    string hostname = null;
+                    int hostindex = data.IndexOf("Host: ") + 6;
+                    char c = data[hostindex];
+                    int n = 1;
 
-                //Just for fun. You don't believe it til you see it. GET' ' Really does send a space. 
-                for (int h = 0; h < bytes.Length; h++)
-                    Console.WriteLine("Byte " + h + " : " + Convert.ToString(bytes[h], 2) + " Char : " + bytes[h].ToString() + '\n');
+                    while (c != '\n')
+                    { 
+                        hostname += c;
+                        c = data[hostindex + n];
+                        n++;
+                    }
 
-                //Console.WriteLine("Received: {0}", data);
+                    //Console.WriteLine("Hostname: " + host);
+                    //Console.WriteLine("Received: {0}", data);
 
-                // Process the data sent by the client.
-                data = data.ToUpper();
+                    //Resolve Hostname
+                    IPHostEntry hostip = Dns.GetHostEntry(hostname);
 
-                byte[] msg = System.Text.Encoding.ASCII.GetBytes(data);
+                    //establish new tcp client
 
-                // Send back a response.
-                //stream.Write(msg, 0, msg.Length);
-                //Console.WriteLine("Sent: {0}", data);
+                }
+
+                
             }
+
+
+
+
+            //Just for fun. You don't believe it til you see it. GET' ' Really does send a space. 
+            //for (int h = 0; h < bytes.Length; h++)
+            //Console.WriteLine("Byte " + h + " : " + Convert.ToString(bytes[h], 2) + " Char : " + bytes[h].ToString() + '\n');
+
+
+
+            // Process the data sent by the client.
+            //data = data.ToUpper();
+
+            //byte[] msg = System.Text.Encoding.ASCII.GetBytes(data);
+
+            // Send back a response.
+            //stream.Write(msg, 0, msg.Length);
+            //Console.WriteLine("Sent: {0}", data);
 
             // Shutdown and end connection
             Client.Close();
-
-        }
-
+        }  
     }
 }
