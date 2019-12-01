@@ -164,18 +164,19 @@ namespace NETCORE_TCP_PROXY
         private static void HandleTcpConnection(object NewClient)
         {
             //This will be executed on another thread
-            Console.WriteLine("Connected! Spawned Thread {0}", Thread.CurrentThread.ManagedThreadId);
+            //Console.WriteLine("Connected! Spawned Thread {0}", Thread.CurrentThread.ManagedThreadId);
 
             //Set received tcp client for this thread.
             TcpClient Client = (TcpClient)NewClient;
 
             //Get Client stream object for reading and writing
             NetworkStream ClientStream = Client.GetStream();
-
+            Client.ReceiveTimeout = 20000;
+            Client.SendTimeout = 20000;
             //define target tcpclient and target stream (will get initialized once first read happens)
             TcpClient Target = null;
             NetworkStream TargetStream = null;
-
+            
             //Client buffer variables for reading data
             byte[] bytesfromclient = new byte[8049];
             string datafromclient = String.Empty;
@@ -201,7 +202,7 @@ namespace NETCORE_TCP_PROXY
 
                         // Translate data bytes to a ASCII string.
                         datafromclient = System.Text.Encoding.ASCII.GetString(bytesfromclient, 0, bytesfromclient.Length);
-                        Console.WriteLine("Received data from Client:\n{0}", datafromclient);
+                        //Console.WriteLine("Received data from Client:\n{0}", datafromclient);
                         //Get Hostname from incoming request
                         if (datafromclient.Contains("CONNECT") || datafromclient.Contains("GET") || datafromclient.Contains("POST"))
                         {
@@ -215,6 +216,8 @@ namespace NETCORE_TCP_PROXY
                             //TcpClient resolves hostname internally, 
                             //port 80 is default for http on tcp
                             Target = new TcpClient(hostname, 80);
+                            Target.ReceiveTimeout = 20000;
+                            Target.SendTimeout = 20000;
                             TargetStream = Target.GetStream();
 
                             //Write bytes from Client to Target Stream
