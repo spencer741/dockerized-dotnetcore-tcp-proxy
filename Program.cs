@@ -5,6 +5,8 @@
 //You may have to insert some handler code to perform a certificate validation callback, e.g.through ServicePointManager.ServerCertificateValidationCallback.
 //https://docs.microsoft.com/en-us/dotnet/api/system.net.security.sslstream?redirectedfrom=MSDN&view=netframework-4.8
 
+//https://docs.microsoft.com/en-us/dotnet/core/docker/build-container
+
 //I have wrapped this .net core program in a linux docker container and deployed to an Azure Container Instance for cloud hosting...
 //Here is a basic schematic on how to do all of the latter ... (This is very general and doesn't include some things like docker setup).
 //But make sure docker is creating linux containers ... I chose linux to see how everything would work cross platform, and the fact that 
@@ -33,8 +35,8 @@
 //docker build -t myimage -f Dockerfile .
 //dotnet publish -c Release
 // make sure publish directory exists ... somewhere around dir .\bin\release\netcoreapp3.0\
-//docker tag myimage spencer741/myimage:latest
-//docker push spencer741/myimage:latest
+//docker tag myimage <dockerusername>/myimage:latest
+//docker push <dockerusername>/myimage:latest
 
 //Created by Spencer Arnold
 
