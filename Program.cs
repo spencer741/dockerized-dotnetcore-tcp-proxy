@@ -199,7 +199,7 @@ namespace NETCORE_TCP_PROXY
 
                         // Translate data bytes to a ASCII string.
                         datafromclient = System.Text.Encoding.ASCII.GetString(bytesfromclient, 0, bytesfromclient.Length);
-                        Console.WriteLine("Received data from Client {0}", datafromclient);
+                        Console.WriteLine("Received data from Client:\n{0}", datafromclient);
                         //Get Hostname from incoming request
                         if (datafromclient.Contains("CONNECT") || datafromclient.Contains("GET") || datafromclient.Contains("POST"))
                         {
