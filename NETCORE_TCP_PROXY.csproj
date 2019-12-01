@@ -11,4 +11,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Dockerized\app\app\myapp.csproj" />
+  </ItemGroup>
 </Project>
