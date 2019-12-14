@@ -3,13 +3,12 @@
 ## Program Documentation
 
 ### General Notes
-This program is a higher level barebones implementation of a TCP Proxy server, using HTTP only. I wrote and deployed this in a few hours, so open any issues for improvements / bug fixes we can make :)
+This program is a higher level barebones implementation of a TCP Proxy server, using HTTP only. I wrote the core code and deployed this in a few hours, so open any issues for improvements / bug fixes we can make :)
 
 This is written in C# utilizing .net core.
 
 Since Microsoft provided a class around the socket layer (named “TcpClient” along with “NetworkStream”), they were used to simplify a standard sockets implementation.
 
-In the code, the daemon spawns a new thread that is dedicated to handling the new client, not a new process.
 
 ### Program Deployment
 I have wrapped this .net core program in a Linux docker container and deployed to an Azure Container Instance for cloud hosting.
