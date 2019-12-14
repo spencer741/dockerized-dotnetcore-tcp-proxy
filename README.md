@@ -3,7 +3,7 @@
 ## Program Documentation
 
 ### General Notes
-This program is a higher level barebones implementation of a TCP Proxy server, using HTTP only.
+This program is a higher level barebones implementation of a TCP Proxy server, using HTTP only. I wrote and deployed this in a few hours, so open any issues for improvements / bug fixes we can make :)
 
 This is written in C# utilizing .net core.
 
